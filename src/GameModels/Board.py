@@ -13,6 +13,16 @@ class Board1010:
         self.board_matrix = np.zeros((self.size, self.size))
         self.available_actions: List[BoardPiece] = []
 
+    def peek_make_move(self, action_index, location):
+        board_copy = self.board_matrix.copy()
+        available_actions_copy = self.available_actions.copy()
+
+        board_after_move = self.make_move(action_index, location).copy()
+
+        self.board_matrix = board_copy
+        self.available_actions = available_actions_copy
+        return board_after_move
+
     def make_move(self, action_index, location: np.array):
         if action_index >= len(self.available_actions):
             raise Exception("Not Valid action index!")
